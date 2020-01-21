@@ -158,6 +158,30 @@ const actors = [{
   }]
 }];
 
-console.log(cars);
+
+function rentalPrice (car, days, distance) {
+  return days * car.pricePerDay + distance * car.pricePerKm;
+};
+
+const MS_PER_DAY = 1000 * 60 * 60 * 24;
+
+function getDays (begin, end) {
+  const beginMs = new Date(begin).getTime();
+  const endMs = new Date(end).getTime();
+}
+
+
+/* 
+function setPrice(element)
+{
+  element.price = 15;
+}
+
+rentals.forEach(setPrice) */
+
+
+//console.log(cars);
 console.log(rentals);
-console.log(actors);
+//console.log(actors);
+
+
