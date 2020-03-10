@@ -159,16 +159,484 @@ const actors = [{
 }];
 
 
+//step 1
+/*
+actors.forEach(actor => {
+  const rental = rentals.find(rental => rental.id === AuthenticatorResponse.rentalId);
+  const {carId, pickupDate, returnDate, distance} = rental;
+  const car = cars.find(car => car.id === carId);
+
+
+  ...
+})
+
+
 function rentalPrice (car, days, distance) {
   return days * car.pricePerDay + distance * car.pricePerKm;
 };
 
+function rentalPrice (car, days, distance) {
+  const pricePerDay = car.pricePerDay * discount(days);
+
+  return days * pricePerDay + distance * car.pricePerKm;
+}
+
+
 const MS_PER_DAY = 1000 * 60 * 60 * 24;
+
 
 function getDays (begin, end) {
   const beginMs = new Date(begin).getTime();
   const endMs = new Date(end).getTime();
+
+  return Math.floor(Math.abs(endMs - beginMs) / MS_PER_DAY) + 1;
 }
+
+
+
+
+*/
+
+
+for (var rental of rentals)
+{
+  for (var car of cars)
+  {
+    if (car.id.localeCompare(rental.carId)===0)
+    {
+      rental.rentalPrice();
+    }
+  }
+}
+
+
+
+for (var rental of rentals)
+{
+  for (var car of cars)
+  {
+    
+    if (car.id.localeCompare(rental.carId)===0)
+    {
+      console.log("Driver id : ");
+      console.log(rental.id);
+      const date1 = new Date(rental.pickupDate);
+      const date2 = new Date(rental.returnDate);
+
+      console.log("Difference in days : ");
+      console.log( (date2-date1)/(24*60*60*1000));
+      console.log("Price per Day : ");
+      console.log(car.pricePerDay);
+
+      var price_time = (date2 - date1)*car.pricePerDay/(24*60*60*1000);
+
+      // console.log("Price (time) :");
+      // console.log(price_time);
+     /*  console.log("Distance (km): ");
+      console.log(rental.distance);
+      console.log("Price per km");
+      console.log(car.pricePerKm); 
+
+      var price_distance = rental.distance * car.pricePerKm;
+  
+      // console.log("Price (distance) :");
+      // console.log(price_distance);
+
+      var rental_price = price_time + price_distance;
+      console.log("Rental Price : ");
+      console.log(rental_price);
+      break;
+    }
+  }
+*/
+// /* 
+// function Step2() {
+//   console.log("Step2");
+//   for (var rental of rentals)
+//   {
+//     for (var car of cars)
+//     {
+      
+//       if (car.id.localeCompare(rental.carId)===0)
+//       {
+//         console.log("Driver id : ");
+//         console.log(rental.id);
+//         const date1 = new Date(rental.pickupDate);
+//         const date2 = new Date(rental.returnDate);
+  
+//         /* console.log("Difference in days : ");
+//         console.log( (date2-date1)/(24*60*60*1000));
+//         console.log("Price per Day : ");
+//         console.log(car.pricePerDay); */
+//         var difference = (date2 - date1)/(24*60*60*1000)
+
+//         var price_time = difference*car.pricePerDay;
+  
+//         // console.log("Price (time) :");
+//         // console.log(price_time);
+//        /*  console.log("Distance (km): ");
+//         console.log(rental.distance);
+//         console.log("Price per km");
+//         console.log(car.pricePerKm); */
+  
+//         var price_distance = rental.distance * car.pricePerKm;
+    
+//         // console.log("Price (distance) :");
+//         // console.log(price_distance);
+  
+//         var rental_price = price_time + price_distance;
+
+//         if (difference>1 && difference <4)
+//         {
+//           rental_price = 0.9 * rental_price;
+//         }
+//         else if (difference >4 && difference <10 )
+//         {
+//           rental_price = 0.7* rental_price;
+//         } 
+//         else if (difference > 10)
+//         {
+//           rental_price = 0.5 * rental_price;
+//         }
+
+//         console.log("Rental Price : ");
+//         console.log(rental_price);
+//         break;
+//       }
+//     }
+    
+//   }
+//   }
+//  // Step2();
+
+//   function Step3() {
+//   console.log("Step3");
+//     for (var rental of rentals)
+//     {
+//       for (var car of cars)
+//       {
+        
+//         if (car.id.localeCompare(rental.carId)===0)
+//         {
+//           console.log("Driver id : ");
+//           console.log(rental.id);
+//           const date1 = new Date(rental.pickupDate);
+//           const date2 = new Date(rental.returnDate);
+    
+//           /* console.log("Difference in days : ");
+//           console.log( (date2-date1)/(24*60*60*1000));
+//           console.log("Price per Day : ");
+//           console.log(car.pricePerDay); */
+//           var difference = (date2 - date1)/(24*60*60*1000)
+  
+//           var price_time = difference*car.pricePerDay;
+    
+//           // console.log("Price (time) :");
+//           // console.log(price_time);
+//          /*  console.log("Distance (km): ");
+//           console.log(rental.distance);
+//           console.log("Price per km");
+//           console.log(car.pricePerKm); */
+    
+//           var price_distance = rental.distance * car.pricePerKm;
+      
+//           // console.log("Price (distance) :");
+//           // console.log(price_distance);
+    
+//           var rental_price = price_time + price_distance;
+  
+//           if (difference>1 && difference <4)
+//           {
+//             rental_price = 0.9 * rental_price;
+//           }
+//           else if (difference >4 && difference <10 )
+//           {
+//             rental_price = 0.7* rental_price;
+//           } 
+//           else if (difference > 10)
+//           {
+//             rental_price = 0.5 * rental_price;
+//           }
+  
+//           console.log("Rental Price : ");
+//           console.log(rental_price);
+//           var insurance = 0.15* rental_price;
+//           var Treasury = 1* difference;
+//           var Virtuo = 0.3*rental_price - insurance - Treasury;
+//           console.log("Insurance : ");
+//           console.log(insurance);
+//           console.log("Treasury : ");
+//           console.log(Treasury);
+//           console.log("Virtuo : ");
+//           console.log(Virtuo);
+//           break;
+//         }
+
+
+//       }
+      
+//     }
+//     }
+
+//    // Step3();
+
+//     function Step4() {
+//       console.log("Step4");
+//       for (var rental of rentals)
+//       {
+//         for (var car of cars)
+//         {
+          
+//           if (car.id.localeCompare(rental.carId)===0)
+//           {
+//             console.log("Driver id : ");
+//             console.log(rental.id);
+//             const date1 = new Date(rental.pickupDate);
+//             const date2 = new Date(rental.returnDate);
+      
+//             /* console.log("Difference in days : ");
+//             console.log( (date2-date1)/(24*60*60*1000));
+//             console.log("Price per Day : ");
+//             console.log(car.pricePerDay); */
+//             var difference = (date2 - date1)/(24*60*60*1000)
+    
+//             var price_time = difference*car.pricePerDay;
+      
+//             // console.log("Price (time) :");
+//             // console.log(price_time);
+//            /*  console.log("Distance (km): ");
+//             console.log(rental.distance);
+//             console.log("Price per km");
+//             console.log(car.pricePerKm); */
+      
+//             var price_distance = rental.distance * car.pricePerKm;
+        
+//             // console.log("Price (distance) :");
+//             // console.log(price_distance);
+      
+//             var rental_price = price_time + price_distance;
+    
+//             if (difference>1 && difference <4)
+//             {
+//               rental_price = 0.9 * rental_price;
+//             }
+//             else if (difference >4 && difference <10 )
+//             {
+//               rental_price = 0.7* rental_price;
+//             } 
+//             else if (difference > 10)
+//             {
+//               rental_price = 0.5 * rental_price;
+//             }
+    
+            
+//             var insurance = 0.15* rental_price;
+//             var Treasury = 1* difference;
+//             var Virtuo = 0.3*rental_price - insurance - Treasury;
+//             if (rental.options.deductibleReduction==true)
+//             {
+              
+//               Virtuo = 4*difference;
+//             }
+//             rental_price +=4*difference;
+//             console.log("Rental Price : ");
+//             console.log(rental_price);
+//             console.log("Insurance : ");
+//             console.log(insurance);
+//             console.log("Treasury : ");
+//             console.log(Treasury);
+//             console.log("Virtuo : ");
+//             console.log(Virtuo);
+//             break;
+//           }
+  
+  
+//         }
+        
+//       }
+//       }
+  
+//       //Step4();
+
+//       function addToActors(rentalId,actors,rental_price,insurance,Treasury,Virtuo)
+//       {
+//         for (var actor of actors)
+//         {
+//           if (rentalId.localeCompare(actor.rentalId)===0)
+//           {
+//             actor.payment[0].amount=rental_price;
+//             actor.payment[1].amount=0.3*rental_price;
+//             actor.payment[2].amount=insurance;
+//             actor.payment[3].amount=Treasury;
+//             actor.payment[4].amount=Virtuo;
+//             break;
+
+//           }
+//         }
+//       }
+
+//       function Step5() {
+//         console.log("Step5");
+//         var ac = [{
+//           'rentalId': '893a04a3-e447-41fe-beec-9a6bfff6fdb4',
+//           'payment': [{
+//             'who': 'driver',
+//             'type': 'debit',
+//             'amount': 0
+//           }, {
+//             'who': 'partner',
+//             'type': 'credit',
+//             'amount': 0
+//           }, {
+//             'who': 'insurance',
+//             'type': 'credit',
+//             'amount': 0
+//           }, {
+//             'who': 'treasury',
+//             'type': 'credit',
+//             'amount': 0
+//           }, {
+//             'who': 'virtuo',
+//             'type': 'credit',
+//             'amount': 0
+//           }]
+//         }, {
+//           'rentalId': 'bc16add4-9b1d-416c-b6e8-2d5103cade80',
+//           'payment': [{
+//             'who': 'driver',
+//             'type': 'debit',
+//             'amount': 0
+//           }, {
+//             'who': 'partner',
+//             'type': 'credit',
+//             'amount': 0
+//           }, {
+//             'who': 'insurance',
+//             'type': 'credit',
+//             'amount': 0
+//           }, {
+//             'who': 'treasury',
+//             'type': 'credit',
+//             'amount': 0
+//           }, {
+//             'who': 'virtuo',
+//             'type': 'credit',
+//             'amount': 0
+//           }]
+//         }, {
+//           'rentalId': '8c1789c0-8e6a-48e3-8ee5-a6d4da682f2a',
+//           'payment': [{
+//             'who': 'driver',
+//             'type': 'debit',
+//             'amount': 0
+//           }, {
+//             'who': 'partner',
+//             'type': 'credit',
+//             'amount': 0
+//           }, {
+//             'who': 'insurance',
+//             'type': 'credit',
+//             'amount': 0
+//           }, {
+//             'who': 'treasury',
+//             'type': 'credit',
+//             'amount': 0
+//           }, {
+//             'who': 'virtuo',
+//             'type': 'credit',
+//             'amount': 0
+//           }]
+//         }];
+//         for (var rental of rentals)
+//         {
+//           for (var car of cars)
+//           {
+            
+//             if (car.id.localeCompare(rental.carId)===0)
+//             {
+//            /*    console.log("Driver id : ");
+//               console.log(rental.id); */
+//               const date1 = new Date(rental.pickupDate);
+//               const date2 = new Date(rental.returnDate);
+        
+//               /* console.log("Difference in days : ");
+//               console.log( (date2-date1)/(24*60*60*1000));
+//               console.log("Price per Day : ");
+//               console.log(car.pricePerDay); */
+//               var difference = (date2 - date1)/(24*60*60*1000)
+      
+//               var price_time = difference*car.pricePerDay;
+        
+//               // console.log("Price (time) :");
+//               // console.log(price_time);
+//              /*  console.log("Distance (km): ");
+//               console.log(rental.distance);
+//               console.log("Price per km");
+//               console.log(car.pricePerKm); */
+        
+//               var price_distance = rental.distance * car.pricePerKm;
+          
+//               // console.log("Price (distance) :");
+//               // console.log(price_distance);
+        
+//               var rental_price = price_time + price_distance;
+      
+//               if (difference>1 && difference <4)
+//               {
+//                 rental_price = 0.9 * rental_price;
+//               }
+//               else if (difference >4 && difference <10 )
+//               {
+//                 rental_price = 0.7* rental_price;
+//               } 
+//               else if (difference > 10)
+//               {
+//                 rental_price = 0.5 * rental_price;
+//               }
+      
+              
+//               var insurance = 0.15* rental_price;
+//               var Treasury = 1* difference;
+//               var Virtuo = 0.3*rental_price - insurance - Treasury;
+//               if (rental.options.deductibleReduction==true)
+//               {
+                
+//                 Virtuo = 4*difference;
+//               }
+//               rental_price +=4*difference;
+//             /*   console.log("Rental Price : ");
+//               console.log(rental_price);
+//               console.log("Insurance : ");
+//               console.log(insurance);
+//               console.log("Treasury : ");
+//               console.log(Treasury);
+//               console.log("Virtuo : ");
+//               console.log(Virtuo); */
+//               addToActors(rental.id,ac,rental_price,insurance,Treasury,Virtuo);
+//               break;
+//             }
+    
+    
+//           }
+          
+//         }
+
+//         for (var a of ac)
+//               {
+//                 console.log(a.rentalId);
+//                 for (var p of a.payment)
+//                 {
+//                   console.log(p.who);
+//                   console.log(p.type);
+//                   console.log(p.amount);
+//                 }
+//               }
+//         }
+//           Step5();
+
+
+//rentals.forEach(rentalPrice(this.car, this.days, this.distance))
+
 
 
 /* 
@@ -176,8 +644,9 @@ function setPrice(element)
 {
   element.price = 15;
 }
+*/
 
-rentals.forEach(setPrice) */
+
 
 
 //console.log(cars);
